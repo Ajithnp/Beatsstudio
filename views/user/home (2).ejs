@@ -1,0 +1,145 @@
+<%- include('../partials/user/header') %>
+
+<body>
+    <div class="top-bar">
+        <div class="container">
+            <div>Call Us: +1 234 567 8901</div>
+            <div>Free shipping on all orders over $99</div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">LOGANCEE</a>
+            <nav class="nav-menu">
+                <a href="#">HOME</a>
+                <a href="#">SHOP</a>
+                <a href="#">FEATURES</a>
+                <a href="#">ABOUT</a>
+                <a href="#">BLOG</a>
+                <a href="#">CONTACT</a>
+            </nav>
+            <div class="user-actions">
+                <a href="/user/login">Login</a>
+                <a href="/user/signup">Sign Up</a>
+                <a href="#">♥</a>
+                <a href="#">🛒</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="user/images//logo7.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>First slide label</h5>
+                  <p>Some representative placeholder content for the first slide.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="user/images/logo4.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Second slide label</h5>
+                  <p>Some representative placeholder content for the second slide.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="user/images/logo6.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Third slide label</h5>
+                  <p>Some representative placeholder content for the third slide.</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+           
+        
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <div class="categories-grid">
+                <div class="category-card">
+                    <img src="user/images/newluanch2.jpg" alt="Headphones">
+                    <div class="category-content">
+                        <h2>New arrivals</h2>
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="user/images/best.jpg" alt="Speakers">
+                    <div class="category-content">
+                        <h2>Best sellers</h2>
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="user/images/limited edition.jpg" alt="Accessories">
+                    <div class="category-content">
+                        <h2>Limited edition</h2>
+                        <a href="#" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="products-grid">
+				<%for (let i=0; i<products.length; i++) {%>
+                <div class="product-card">
+					<a href="#">
+                    <img src="/uploads/re-image/<%=products[i].productImage[0]%>" alt="Premium Headphones">
+				   </a>
+                    <div class="product-info">
+                        <h3 class="product-title"><%=products[i].productName%></h3>
+                        <div class="product-price">
+                            <span><%=products[i].salePrice%></span>
+                            <span class="regular-price"><%=products[i].regularPrice%></span>
+                        </div>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Add to Cart</a>
+                            <a href="#" class="btn btn-secondary">♥</a>
+                        </div>
+                    </div>
+                </div>
+				<%}%>
+            </div>
+        </div>
+    </section>
+
+    <section class="brands">
+        <div class="container">
+            <div class="brands-grid">
+                <img src="user/images/applelogo.jpg" alt="Brand 1" class="brand-logo">
+                <img src="user/images/boatlogo.jpg" alt="Brand 2" class="brand-logo">
+                <img src="user/images/jbllogo.jpg" alt="Brand 3" class="brand-logo">
+                <img src="user/images/oneplulogo.jpg" alt="Brand 4" class="brand-logo">
+                <img src="user/images/sonylogo.jpg" alt="Brand 5" class="brand-logo">
+				<img src="user/images/realmelogo.jpg" alt="Brand 5" class="brand-logo">
+				<img src="user/images/noiselogo.jpg" alt="Brand 5" class="brand-logo">
+            </div>
+        </div>
+    </section>
+
+   
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+	<%- include('../partials/user/footer') %>

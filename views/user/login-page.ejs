@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        .login-form {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .login-form h2 {
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #3a3a3a;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1em;
+        }
+        .input-group input::placeholder {
+            color: #aaa;
+        }
+        .login-btn {
+            background-color: #ff4b2b;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .login-btn:hover {
+            background-color: #ff6b3f;
+        }
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .links a:hover {
+            color: #fff;
+        }
+        .text-container {
+            flex: 1;
+            background-color: #3a3a3a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            text-align: center;
+        }
+        .text-container h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #ff4b2b;
+        }
+        .text-container p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #ddd;
+        }
+        .google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: #757575;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 15px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+.google-btn:hover {
+    background-color: #f5f5f5;
+}
+.google-btn img {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+}
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            .text-container {
+                padding: 30px;
+            }
+            .login-form {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <h2>Log-in</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password"  placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <div class="links">
+                <a href="#">Forgot your password?</a>
+                <br>
+                <a href="/user/signup">Don't have an account? Sign up here</a>
+                <button class="google-btn" id="google-btn">
+                    <img src="https://cdn2.hubspot.net/hubfs/53/image8-2.jpg" alt="Google logo">
+                    Sign in with Google
+                </button>
+            </div>
+            <div id="error-message" style="color: #ff4b2b;">
+                
+            </div>
+        </div>
+        <div class="text-container">
+            <h2>Welcome Back!</h2>
+            <p>We're glad to see you again. Login to access your account and explore our amazing features.</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e)=>{
+            e.preventDefault()
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            let errorMessageDiv = document.getElementById('error-message');
+
+            errorMessageDiv.innerText = ""
+
+            	// Validate  email
+		 const emailPattern =  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		    if (! emailPattern.test(email)){
+			errorMessageDiv.innerText = ' Please enter valid email..';
+			return;
+		 }
+        
+         //Validate password length
+		if (password.length < 6 ){
+			errorMessageDiv.innerText = 'Password must contain 6 characters';
+			return;
+		}
+
+        try {
+			const response = await fetch('/user/login',{
+				method: 'POST',
+				headers:{
+					'Content-Type' : 'application/json' 
+				},
+				body : JSON.stringify({email, password}),
+			});
+
+			if (! response.ok){
+
+				//Handle HTTP errors
+				const errorData = await response.json()
+				throw new Error (errorData.message || 'Login failed') 
+			}
+
+			const data = await response.json()
+			console.log('Log in successfull',data);  // redirect
+			// After successful login 
+			window.location.href = '/';
+			
+			
+		} catch (error) {
+			// Display error messages to the user
+			errorMessageDiv.innerText = error.message;
+			console.log('an error occured',error);
+		}
+
+
+        })
+
+        document.getElementById('google-btn').addEventListener('click', function(){
+        window.location.href ="/auth/google"
+        })
+    </script>
+</body>
+</html>
